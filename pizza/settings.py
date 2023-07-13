@@ -113,10 +113,14 @@ if DEBUG:
 }
 
 else:
-    DATABASES['default'] = dj_database_url.config(
-    conn_max_age=600,
-    conn_health_checks=True,
-)
+
+ DATABASES = {
+    'default': dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    ),
+}
+ 
 DATABASES['default'] = dj_database_url.config(
     default='postgres://pizza_8euj_user:DzAWbwPoUEKYoNdvR6mtRe9BsEomQNUm@dpg-cinsq5dgkuvudifoi4h0-a.oregon-postgres.render.com/pizza_8euj',
     conn_max_age=600,
