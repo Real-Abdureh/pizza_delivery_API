@@ -118,7 +118,7 @@ else:
     conn_health_checks=True,
 )
 DATABASES['default'] = dj_database_url.config(
-    default='postgres://pizza_api_wzhu_user:S6qQ1mJOmsMX4UC56M5Cwy1US9cC6DXk@dpg-cinohn5gkuvudi9p0hn0-a.oregon-postgres.render.com/pizza_api_wzhu',
+    default='postgres://pizza_8euj_user:DzAWbwPoUEKYoNdvR6mtRe9BsEomQNUm@dpg-cinsq5dgkuvudifoi4h0-a.oregon-postgres.render.com/pizza_8euj',
     conn_max_age=600,
     conn_health_checks=True,
 )
