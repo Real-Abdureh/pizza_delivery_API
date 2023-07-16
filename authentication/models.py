@@ -6,15 +6,14 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.db import models
 
 
-class CustomeUserManager(BaseUserManager):
-    
-    def create_user(self, email, password, **extra_fields):
+class CustomUserManager(BaseUserManager):
+    def create_user(self,email,password,**extra_fields):
         if not email:
-            raise ValueError(_('Email should be provided'))
-        
+            raise ValueError(_('Please enter an email address'))
+
         email=self.normalize_email(email)
 
-        new_user=self.model(email=email, **extra_fields)
+        new_user=self.model(email=email,**extra_fields)
 
         new_user.set_password(password)
 
@@ -23,22 +22,20 @@ class CustomeUserManager(BaseUserManager):
         return new_user
 
 
-    def create_superuser(self, email, passwords, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
-        # extra_fields.setdefault('is_staff', True)
+    def create_superuser(self,email,password,**extra_fields):
+
+        extra_fields.setdefault('is_superuser',True)
+        extra_fields.setdefault('is_staff',True)
+        extra_fields.setdefault('is_active',True)
+
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError(_('Superuser must have is_superuser=True'))
 
         if extra_fields.get('is_staff') is not True:
-            raise ValueError(-("Super user should have is_staff as True"))
-        
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError(-("Super user should have is_superuser as True"))
-        
-        if extra_fields.get('is_active') is not True:
-            raise ValueError(-("Super user should have is_active as True"))
-        
-        return self.create_user(email, passwords, **extra_fields)
+            raise ValueError(_('Superuser must have is_staff=True'))
+
+
+        return self.create_user(email,password,**extra_fields)
     
 
 class User(AbstractUser):
@@ -48,7 +45,7 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'phone_number']
 
-    objects = CustomeUserManager()
+    objects = CustomUserManager()
 
     def __str__(self):
         return f"<User {self.email}>"
