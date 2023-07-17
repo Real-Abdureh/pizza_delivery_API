@@ -22,7 +22,7 @@ class HelloOrdeView(generics.GenericAPIView):
 class OrderCreateListView(generics.GenericAPIView):
 
     serializer_class = serializers.OrderCreationSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]   
+    permission_classes = [IsAuthenticated,]   
     queryset = Order.objects.all()
 
     @swagger_auto_schema(operation_summary="List of  all Orders")
